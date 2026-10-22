@@ -1,0 +1,117 @@
+﻿@model List<library.Models.Member>
+
+@{
+    ViewData["Title"] = "Members Directory";
+}
+
+<div style="padding: 12px 0 28px;">
+
+    <a asp-controller="Home" asp-action="Index"
+       style="display: inline-block; text-decoration: none; color: #475569; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 9px 16px; margin-bottom: 24px;">
+        ← Back to Home
+    </a>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; background: #ecfeff; border: 1px solid #cffafe; border-radius: 20px; padding: 28px; margin-bottom: 24px;">
+        <div>
+            <p style="margin: 0 0 8px; color: #0f766e; font-size: 12px; font-weight: bold; letter-spacing: 2px;">
+                LIBRARY MANAGEMENT
+            </p>
+
+            <h1 style="margin: 0; color: #134e4a; font-size: 32px; font-weight: 800;">
+                Members Directory
+            </h1>
+
+            <p style="margin: 10px 0 0; color: #475569;">
+                Manage your library members in one place.
+            </p>
+
+            <div style="margin-top: 16px; color: #115e59; font-size: 14px;">
+                <strong style="font-size: 22px;">@Model.Count</strong>
+                registered members
+            </div>
+        </div>
+
+        <a asp-action="Create"
+           style="display: inline-block; background: #0f766e; color: white; text-decoration: none; padding: 13px 20px; border-radius: 12px; font-weight: bold;">
+            + Add Member
+        </a>
+    </div>
+
+    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 16px; overflow-x: auto; box-shadow: 0 8px 24px rgba(15,23,42,0.05);">
+        <table style="width: 100%; border-collapse: collapse; min-width: 700px;">
+            <thead>
+                <tr style="background: #115e59; color: white; text-align: left;">
+                    <th style="padding: 16px;">ID</th>
+                    <th style="padding: 16px;">Full Name</th>
+                    <th style="padding: 16px;">Email</th>
+                    <th style="padding: 16px;">Member Type</th>
+                    <th style="padding: 16px; text-align: right;">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @if (Model.Count == 0)
+                {
+                    <tr>
+                        <td colspan="5" style="padding: 40px; text-align: center; color: #64748b;">
+                            No members found. Add your first member to get started.
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    var index = 0;
+
+                    @foreach (var member in Model)
+                    {
+                        index++;
+
+                        <tr style="background: @(index % 2 == 0 ? "#f8fafc" : "#ffffff"); border-bottom: 1px solid #e2e8f0;">
+                            <td style="padding: 16px; color: #64748b; font-weight: bold;">
+                                #@member.MemberId
+                            </td>
+
+                            <td style="padding: 16px; color: #0f172a; font-weight: bold;">
+                                @member.FullName
+                            </td>
+
+                            <td style="padding: 16px; color: #475569;">
+                                @(string.IsNullOrEmpty(member.Email) ? "—" : member.Email)
+                            </td>
+
+                            <td style="padding: 16px;">
+                                @{
+                                    var memberType = member.MemberType ?? "regular";
+
+                                    var typeColor = memberType.ToLower() switch
+                                    {
+                                        "premium" => "#6d28d9",
+                                        "student" => "#0369a1",
+                                        "regular" => "#0f766e",
+                                        _ => "#475569"
+                                    };
+                                }
+
+                                <span style="display: inline-block; background: @typeColor; color: white; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold;">
+                                    @memberType
+                                </span>
+                            </td>
+
+                            <td style="padding: 16px; text-align: right; white-space: nowrap;">
+                                <a asp-action="Edit" asp-route-id="@member.MemberId"
+                                   style="display: inline-block; color: #0f766e; text-decoration: none; border: 1px solid #99f6e4; background: #f0fdfa; padding: 7px 11px; border-radius: 8px; margin-right: 4px;">
+                                    Edit
+                                </a>
+
+                                <a asp-action="Delete" asp-route-id="@member.MemberId"
+                                   style="display: inline-block; color: #b91c1c; text-decoration: none; border: 1px solid #fecaca; background: #fef2f2; padding: 7px 11px; border-radius: 8px;">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
