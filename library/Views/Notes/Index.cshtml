@@ -1,0 +1,112 @@
+﻿@model List<Note>
+
+@{
+    ViewData["Title"] = "Notes";
+}
+
+<div style="padding: 12px 0 28px;">
+
+    <a asp-controller="Home" asp-action="Index"
+       style="display: inline-block; text-decoration: none; color: #475569; background: white; border: 1px solid #e2e8f0; border-radius: 10px; padding: 9px 16px; margin-bottom: 24px;">
+        ← Back to Home
+    </a>
+
+    <div style="background: #eff6ff; border: 1px solid #dbeafe; border-radius: 20px; padding: 28px; margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <div>
+                <p style="margin: 0 0 8px; color: #2563eb; font-size: 12px; font-weight: bold; letter-spacing: 2px;">
+                    LIBRARY WORKSPACE
+                </p>
+
+                <h1 style="margin: 0; color: #1e3a8a; font-size: 32px; font-weight: 800;">
+                    Notes & Reminders
+                </h1>
+
+                <p style="margin: 10px 0 0; color: #475569;">
+                    Keep important library tasks and reminders organized.
+                </p>
+            </div>
+
+            <a asp-action="Create"
+               style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 13px 20px; border-radius: 12px; font-weight: bold;">
+                + Create Note
+            </a>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 12px; margin-top: 24px; background: white; border: 1px solid #dbeafe; border-radius: 14px; padding: 16px;">
+            <div style="background: #dbeafe; color: #1d4ed8; width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 23px;">
+                ✎
+            </div>
+
+            <div>
+                <div style="font-size: 24px; color: #1e3a8a; font-weight: 800;">
+                    @Model.Count
+                </div>
+
+                <div style="color: #64748b; font-size: 13px;">
+                    Total saved notes
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div style="text-align: center; background: white; border: 1px dashed #93c5fd; border-radius: 18px; padding: 48px 20px;">
+            <div style="font-size: 40px; margin-bottom: 12px;">📝</div>
+
+            <h3 style="margin: 0 0 8px; color: #1e3a8a;">
+                Your notes start here
+            </h3>
+
+            <p style="margin: 0 0 20px; color: #64748b;">
+                Create a note to keep track of important library tasks.
+            </p>
+
+            <a asp-action="Create"
+               style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 11px 18px; border-radius: 10px; font-weight: bold;">
+                Create Your First Note
+            </a>
+        </div>
+    }
+    else
+    {
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px;">
+            @foreach (var note in Model)
+            {
+                <div style="background: white; border: 1px solid #e2e8f0; border-top: 4px solid #3b82f6; border-radius: 16px; padding: 22px; box-shadow: 0 8px 24px rgba(15,23,42,0.05); display: flex; flex-direction: column;">
+
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 14px;">
+                        <span style="color: #2563eb; background: #eff6ff; padding: 5px 9px; border-radius: 8px; font-size: 12px; font-weight: bold;">
+                            NOTE #@note.NoteId
+                        </span>
+
+                        <span style="color: #64748b; font-size: 12px;">
+                            @(note.CreatedOn?.ToString("MMM dd, yyyy") ?? "No date")
+                        </span>
+                    </div>
+
+                    <h3 style="color: #0f172a; font-size: 20px; margin: 0 0 12px; overflow-wrap: anywhere;">
+                        @note.Title
+                    </h3>
+
+                    <p style="color: #64748b; line-height: 1.7; margin: 0 0 24px; white-space: pre-wrap; overflow-wrap: anywhere; flex-grow: 1;">
+                        @(string.IsNullOrWhiteSpace(note.Body) ? "No additional details provided." : note.Body)
+                    </p>
+
+                    <div style="display: flex; gap: 8px; border-top: 1px solid #e2e8f0; padding-top: 16px;">
+                        <a asp-action="Edit" asp-route-id="@note.NoteId"
+                           style="flex: 1; text-align: center; color: #1d4ed8; background: #eff6ff; border: 1px solid #bfdbfe; text-decoration: none; padding: 9px; border-radius: 9px; font-weight: bold;">
+                            Edit Note
+                        </a>
+
+                        <a asp-action="Delete" asp-route-id="@note.NoteId"
+                           style="flex: 1; text-align: center; color: #b91c1c; background: #fef2f2; border: 1px solid #fecaca; text-decoration: none; padding: 9px; border-radius: 9px; font-weight: bold;">
+                            Delete
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

@@ -1,8 +1,112 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div style="padding: 16px 0 36px;">
+
+    <div style="background: #0f172a; color: white; border-radius: 24px; padding: 40px 32px; margin-bottom: 28px; position: relative; overflow: hidden;">
+        <p style="margin: 0 0 14px; color: #5eead4; font-size: 12px; font-weight: bold; letter-spacing: 3px;">
+            LIBRARY MANAGEMENT SYSTEM
+        </p>
+
+        <h1 style="font-size: 36px; line-height: 1.2; font-weight: 800; margin: 0; color: white;">
+            Welcome to Your<br />
+            Library Dashboard
+        </h1>
+
+        <p style="color: #cbd5e1; font-size: 16px; line-height: 1.8; max-width: 520px; margin: 18px 0 24px;">
+            Manage your book collection, organize members, and keep important notes in one convenient place.
+        </p>
+
+        <a asp-controller="Books" asp-action="Index"
+           style="display: inline-block; background: #14b8a6; color: #042f2e; text-decoration: none; padding: 13px 20px; border-radius: 10px; font-weight: bold;">
+            Explore Books →
+        </a>
+
+        <div style="margin-top: 28px; border-top: 1px solid #334155; padding-top: 18px; color: #94a3b8; font-size: 13px;">
+            YOUR LIBRARY · YOUR COLLECTION · YOUR WORKSPACE
+        </div>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <h2 style="margin: 0 0 8px; color: #0f172a; font-size: 24px; font-weight: 800;">
+            Quick Access
+        </h2>
+
+        <p style="margin: 0; color: #64748b;">
+            Choose a section to manage your library.
+        </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px;">
+
+        <a asp-controller="Books" asp-action="Index"
+           style="display: block; text-decoration: none; background: white; border: 1px solid #ddd6fe; border-top: 5px solid #8b5cf6; border-radius: 18px; padding: 24px; box-shadow: 0 8px 24px rgba(15,23,42,0.04);">
+            <div style="width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; background: #ede9fe; border-radius: 14px; font-size: 26px; margin-bottom: 20px;">
+                📚
+            </div>
+
+            <h3 style="margin: 0 0 10px; color: #4c1d95; font-size: 21px;">
+                Books
+            </h3>
+
+            <p style="margin: 0 0 18px; color: #64748b; line-height: 1.7; font-size: 14px;">
+                View the book catalogue, add new books, and update book information.
+            </p>
+
+            <span style="color: #7c3aed; font-weight: bold; font-size: 14px;">
+                Manage Books →
+            </span>
+        </a>
+
+        <a asp-controller="Member" asp-action="Index"
+           style="display: block; text-decoration: none; background: white; border: 1px solid #99f6e4; border-top: 5px solid #14b8a6; border-radius: 18px; padding: 24px; box-shadow: 0 8px 24px rgba(15,23,42,0.04);">
+            <div style="width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; background: #ccfbf1; border-radius: 14px; font-size: 26px; margin-bottom: 20px;">
+                👥
+            </div>
+
+            <h3 style="margin: 0 0 10px; color: #115e59; font-size: 21px;">
+                Members
+            </h3>
+
+            <p style="margin: 0 0 18px; color: #64748b; line-height: 1.7; font-size: 14px;">
+                View member records and manage member information.
+            </p>
+
+            <span style="color: #0f766e; font-weight: bold; font-size: 14px;">
+                Manage Members →
+            </span>
+        </a>
+
+        <a asp-controller="Notes" asp-action="Index"
+           style="display: block; text-decoration: none; background: white; border: 1px solid #bfdbfe; border-top: 5px solid #3b82f6; border-radius: 18px; padding: 24px; box-shadow: 0 8px 24px rgba(15,23,42,0.04);">
+            <div style="width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; background: #dbeafe; border-radius: 14px; font-size: 26px; margin-bottom: 20px;">
+                📝
+            </div>
+
+            <h3 style="margin: 0 0 10px; color: #1e40af; font-size: 21px;">
+                Notes
+            </h3>
+
+            <p style="margin: 0 0 18px; color: #64748b; line-height: 1.7; font-size: 14px;">
+                Save reminders, organize tasks, and manage library notes.
+            </p>
+
+            <span style="color: #2563eb; font-weight: bold; font-size: 14px;">
+                Manage Notes →
+            </span>
+        </a>
+
+    </div>
+
+    <div style="margin-top: 28px; padding: 20px 24px; background: #f0fdfa; border: 1px solid #ccfbf1; border-radius: 16px;">
+        <p style="margin: 0 0 6px; color: #115e59; font-weight: bold;">
+            Keep Your Library Organized
+        </p>
+
+        <p style="margin: 0; color: #475569; font-size: 14px; line-height: 1.7;">
+            Use the dashboard to access your records and keep your library information up to date.
+        </p>
+    </div>
+
 </div>

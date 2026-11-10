@@ -1,0 +1,105 @@
+﻿@model List<Book>
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+<div style="padding: 12px 0 28px;">
+
+    <a asp-controller="Home" asp-action="Index"
+       style="display: inline-block; text-decoration: none; color: #475569; background: white; border: 1px solid #e2e8f0; border-radius: 10px; padding: 9px 16px; margin-bottom: 24px;">
+        ← Back to Home
+    </a>
+
+    <div style="background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 20px; padding: 28px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+        <div>
+            <p style="margin: 0 0 8px; color: #7c3aed; font-size: 12px; font-weight: bold; letter-spacing: 2px;">
+                LIBRARY COLLECTION
+            </p>
+
+            <h1 style="margin: 0; color: #4c1d95; font-size: 32px; font-weight: 800;">
+                Book Catalogue
+            </h1>
+
+            <p style="margin: 10px 0 0; color: #64748b;">
+                Browse and manage the books in your library.
+            </p>
+
+            <p style="margin: 18px 0 0; color: #5b21b6;">
+                <strong style="font-size: 26px;">@Model.Count</strong>
+                books in the collection
+            </p>
+        </div>
+
+        <a asp-action="Create"
+           style="display: inline-block; background: #7c3aed; color: white; text-decoration: none; padding: 13px 20px; border-radius: 12px; font-weight: bold;">
+            + Add a Book
+        </a>
+    </div>
+
+    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 16px; overflow-x: auto; box-shadow: 0 8px 24px rgba(15,23,42,0.05);">
+        <table style="width: 100%; min-width: 650px; border-collapse: collapse;">
+            <thead>
+                <tr style="background: #5b21b6; color: white; text-align: left;">
+                    <th style="padding: 16px;">Book ID</th>
+                    <th style="padding: 16px;">Book Title</th>
+                    <th style="padding: 16px;">Category</th>
+                    <th style="padding: 16px; text-align: right;">Price</th>
+                    <th style="padding: 16px; text-align: right;">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @if (Model.Count == 0)
+                {
+                    <tr>
+                        <td colspan="5" style="padding: 40px; text-align: center; color: #64748b;">
+                            No books available yet. Add your first book!
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    var index = 0;
+
+                    @foreach (var book in Model)
+                    {
+                        index++;
+
+                        <tr style="background: @(index % 2 == 0 ? "#faf5ff" : "#ffffff"); border-bottom: 1px solid #e2e8f0;">
+                            <td style="padding: 16px; color: #64748b; font-weight: bold;">
+                                #@book.BookId
+                            </td>
+
+                            <td style="padding: 16px; color: #1e293b; font-weight: bold;">
+                                @book.Title
+                            </td>
+
+                            <td style="padding: 16px;">
+                                <span style="display: inline-block; background: #ede9fe; color: #5b21b6; padding: 6px 11px; border-radius: 20px; font-size: 12px; font-weight: bold;">
+                                    @(book.Category ?? "Uncategorized")
+                                </span>
+                            </td>
+
+                            <td style="padding: 16px; text-align: right; color: #334155; font-weight: bold;">
+                                @(book.Price?.ToString("N2") ?? "—")
+                            </td>
+
+                            <td style="padding: 16px; text-align: right; white-space: nowrap;">
+                                <a asp-action="Edit" asp-route-id="@book.BookId"
+                                   style="display: inline-block; color: #6d28d9; background: #f5f3ff; border: 1px solid #ddd6fe; text-decoration: none; padding: 7px 11px; border-radius: 8px; margin-right: 4px;">
+                                    Edit
+                                </a>
+
+                                <a asp-action="Delete" asp-route-id="@book.BookId"
+                                   style="display: inline-block; color: #b91c1c; background: #fef2f2; border: 1px solid #fecaca; text-decoration: none; padding: 7px 11px; border-radius: 8px;">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
