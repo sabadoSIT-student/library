@@ -38,3 +38,9 @@
         <a asp-action="Index" class="btn btn-link">Cancel</a>
     </div>
 </form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
